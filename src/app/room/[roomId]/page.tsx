@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { roomId: string } }) {
 
   return (
     <Room>
-      <main className="max-w-[380px] mx-auto">
+      <main className="max-w-[375px] mx-auto">
         <h1 className="mt-16 text-3xl font-bold tracking-tight">
           {documentName}
         </h1>
@@ -57,7 +57,7 @@ function LiveblocksLogo() {
       viewBox="0 0 1369 187"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-3.5 w-auto mx-1.5 inline"
+      className="h-3.5 w-auto ml-1.5 inline"
     >
       <path
         fillRule="evenodd"
