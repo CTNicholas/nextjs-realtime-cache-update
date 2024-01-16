@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { roomId: string } }) {
 
   return (
     <Room>
-      <main className="max-w-[350px] mx-auto">
+      <main className="max-w-[380px] mx-auto">
         <h1 className="mt-16 text-3xl font-bold tracking-tight">
           {documentName}
         </h1>
@@ -39,8 +39,9 @@ export default async function Page({ params }: { params: { roomId: string } }) {
               required
             />
           </div>
-          <button className="px-3.5 py-2.5 bg-black hover:bg-gray-800 active:bg-black text-white rounded font-medium flex justify-center items-center">
-            <LiveblocksLogo /> + revalidateTag
+          <button className="px-3 py-2.5 bg-black hover:bg-gray-800 active:bg-black text-white rounded font-medium flex justify-center items-center">
+            Send `revalidateTag` to all with
+            <LiveblocksLogo />
           </button>
         </form>
       </main>
