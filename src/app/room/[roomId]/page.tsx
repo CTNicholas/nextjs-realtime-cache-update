@@ -6,12 +6,8 @@ export default async function Page() {
   async function onSubmit(formData: FormData) {
     "use server";
 
-    const name = formData.get("name");
-    if (!name) {
-      return;
-    }
-
-    await updateDocumentName(name as string);
+    const name = formData.get("name") as string;
+    await updateDocumentName(name);
   }
 
   const documentName = await getDocumentName();

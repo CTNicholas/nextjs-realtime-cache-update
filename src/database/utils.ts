@@ -7,7 +7,7 @@ const liveblocks = new Liveblocks({
 
 export const updateDocumentName = async (documentName: string) => {
   await liveblocks.updateRoom("z5sQ_c2Cep_9v4DwuQojg", {
-    metadata: { documentName },
+    metadata: { documentName: documentName || null },
   });
   revalidateTag("documentName");
 };
