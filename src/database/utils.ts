@@ -1,50 +1,22 @@
-import sqlite3 from "sqlite3";
 import { revalidateTag, unstable_cache } from "next/cache";
+import { Liveblocks } from "@liveblocks/node";
 
-interface User {
-  id?: number;
-  name: string;
-}
+const liveblocks = new Liveblocks({
+  secret: process.env.LIVEBLOCKS_SECRET_KEY as string,
+});
 
-const db = new sqlite3.Database(
-  "./src/database/mydb.sqlite3",
-  (err: Error | null) => {
-    if (err) {
-      console.error("Error opening database", err);
-    } else {
-      console.log("Connected to the SQLite database.");
-    }
-  }
-);
-
-export const addUser = async (name: string): Promise<User> => {
-  const result: User = await new Promise((resolve, reject) => {
-    const query = "INSERT INTO users (name) VALUES (?)";
-    db.run(query, [name], function (err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ id: this.lastID, name });
-      }
-    });
+export const updateDocumentName = async (documentName: string) => {
+  await liveblocks.updateRoom("z5sQ_c2Cep_9v4DwuQojg", {
+    metadata: { documentName },
   });
-  revalidateTag("users");
-  return result;
+  revalidateTag("documentName");
 };
 
-export const listUsers = unstable_cache(
-  async (): Promise<User[]> => {
-    return new Promise((resolve, reject) => {
-      const query = "SELECT * FROM users";
-      db.all(query, [], (err, rows) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows as User[]);
-        }
-      });
-    });
+export const getDocumentName = unstable_cache(
+  async (): Promise<string> => {
+    const room = await liveblocks.getRoom("z5sQ_c2Cep_9v4DwuQojg");
+    return room.metadata.documentName as string;
   },
-  ["users"],
-  { tags: ["users"] }
+  ["documentName"],
+  { tags: ["documentName"] }
 );

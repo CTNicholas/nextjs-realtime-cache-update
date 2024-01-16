@@ -1,30 +1,27 @@
 import Room from "@/app/room/[roomId]/Room";
 import { CollaborativeApp } from "@/components/CollaborativeApp";
-import { addUser, listUsers } from "@/database/utils";
+import { getDocumentName, updateDocumentName } from "@/database/utils";
 
 export default async function Page() {
   async function onSubmit(formData: FormData) {
     "use server";
 
-    const name = formData.get("username");
+    const name = formData.get("name");
     if (!name) {
       return;
     }
-    await addUser(name as string);
+
+    await updateDocumentName(name as string);
   }
 
-  const userList = await listUsers();
+  const documentName = await getDocumentName();
 
   return (
     <Room>
-      <div>
-        {userList.map((user) => (
-          <div>{user.name}</div>
-        ))}
-      </div>
+      <div>Document: {documentName}</div>
       <form action={onSubmit}>
-        <input type="text" name="username" />
-        <button>Increment</button>
+        <input type="text" name="name" />
+        <button>Update</button>
       </form>
       <CollaborativeApp />
     </Room>
