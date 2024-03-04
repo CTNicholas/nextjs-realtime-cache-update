@@ -1,4 +1,4 @@
-## Liveblocks real-time voting demo
+## Liveblocks + Next.js real-time caching
 
 This demo shows you how to implement real-time Next.js caching/revalidating with [Liveblocks](https://liveblocks.io/). No data is stored on Liveblocks to make this work, it simply tells other users to refresh their data from your database.
 
